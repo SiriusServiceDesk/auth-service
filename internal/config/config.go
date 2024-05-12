@@ -11,6 +11,11 @@ type HttpServer struct {
 	Port string `yaml:"port" env-default:"8000"`
 }
 
+type GrpcServer struct {
+	Host string `yaml:"host" env-default:"0.0.0.0"`
+	Port string `yaml:"port" env-default:"8000"`
+}
+
 type Db struct {
 	Host     string `yaml:"host" env-default:"localhost"`
 	Port     string `yaml:"port" env-default:"5432"`
@@ -22,6 +27,7 @@ type Db struct {
 type Config struct {
 	Env        string     `yaml:"env" env-required:"true"`
 	HttpServer HttpServer `yaml:"http_server"`
+	GrpcServer GrpcServer `yaml:"grpc_server"`
 	Db         Db         `yaml:"db"`
 }
 
