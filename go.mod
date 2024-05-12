@@ -1,4 +1,4 @@
-module github.com/urcop/go-fiber-template
+module github.com/SiriusServiceDesk/auth-service
 
 go 1.21.5
 

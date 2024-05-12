@@ -2,8 +2,8 @@ package repository
 
 import (
 	"fmt"
-	"github.com/urcop/go-fiber-template/internal/config"
-	"github.com/urcop/go-fiber-template/internal/models"
+	"github.com/SiriusServiceDesk/auth-service/internal/config"
+	"github.com/SiriusServiceDesk/auth-service/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

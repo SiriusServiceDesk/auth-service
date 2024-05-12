@@ -1,10 +1,10 @@
 package swagger
 
 import (
+	_ "github.com/SiriusServiceDesk/auth-service/api"
+	"github.com/SiriusServiceDesk/auth-service/internal/web"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
-	_ "github.com/urcop/go-fiber-template/api"
-	"github.com/urcop/go-fiber-template/internal/web"
 )
 
 var _ web.Controller = (*Controller)(nil)

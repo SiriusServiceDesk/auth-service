@@ -1,11 +1,11 @@
 package initializers
 
 import (
+	"github.com/SiriusServiceDesk/auth-service/internal/app/dependencies"
+	"github.com/SiriusServiceDesk/auth-service/internal/web"
+	"github.com/SiriusServiceDesk/auth-service/internal/web/status"
+	"github.com/SiriusServiceDesk/auth-service/internal/web/swagger"
 	"github.com/gofiber/fiber/v2"
-	"github.com/urcop/go-fiber-template/internal/app/dependencies"
-	"github.com/urcop/go-fiber-template/internal/web"
-	"github.com/urcop/go-fiber-template/internal/web/status"
-	"github.com/urcop/go-fiber-template/internal/web/swagger"
 )
 
 func SetupRoutes(app *fiber.App, container *dependencies.Container) {

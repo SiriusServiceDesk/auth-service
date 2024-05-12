@@ -1,8 +1,8 @@
 package cli
 
 import (
+	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
 	"github.com/spf13/cobra"
-	"github.com/urcop/go-fiber-template/pkg/logger"
 )
 
 // ExecuteRootCmd prepares all CLI commands

@@ -2,11 +2,11 @@ package cli
 
 import (
 	"context"
+	application "github.com/SiriusServiceDesk/auth-service/internal/app"
+	"github.com/SiriusServiceDesk/auth-service/internal/config"
+	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
 	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/cobra"
-	application "github.com/urcop/go-fiber-template/internal/app"
-	"github.com/urcop/go-fiber-template/internal/config"
-	"github.com/urcop/go-fiber-template/pkg/logger"
 	"os/signal"
 	"syscall"
 	"time"

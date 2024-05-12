@@ -1,6 +1,6 @@
 package main
 
-import "github.com/urcop/go-fiber-template/internal/app/cli"
+import "github.com/SiriusServiceDesk/auth-service/internal/app/cli"
 
 func main() {
 	cli.ExecuteRootCmd()

@@ -1,8 +1,8 @@
 package status
 
 import (
+	"github.com/SiriusServiceDesk/auth-service/internal/web"
 	"github.com/gofiber/fiber/v2"
-	"github.com/urcop/go-fiber-template/internal/web"
 	"net/http"
 )
 
