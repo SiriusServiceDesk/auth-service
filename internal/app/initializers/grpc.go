@@ -29,8 +29,7 @@ func InitializeGRPCServer(listener net.Listener, container *dependencies.Contain
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
 
-	auth_v1.RegisterAuthV1Handler(
-		ctx, handlers.NewHandlers())
+	auth_v1.RegisterAuthV1Server(grpcServer, handlers.NewHandler(container.UserService, container.Redis))
 
 	logger.Info("Complete register grpc handlers")
 	return server.NewGRPCServer(listener, grpcServer)
