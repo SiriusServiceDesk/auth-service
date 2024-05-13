@@ -3,7 +3,7 @@ module github.com/SiriusServiceDesk/auth-service
 go 1.21.5
 
 require (
-	github.com/SiriusServiceDesk/gateway-service v0.0.5
+	github.com/SiriusServiceDesk/gateway-service v0.0.6
 	github.com/gofiber/fiber/v2 v2.52.0
 	github.com/gofiber/swagger v1.0.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
