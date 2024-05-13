@@ -28,3 +28,14 @@ func RegistrationResponse(status int32, message string) (*auth_v1.RegistrationRe
 func RegistrationErrorResponse(code codes.Code, message string) (*auth_v1.RegistrationResponse, error) {
 	return nil, status.Error(code, message)
 }
+
+func ConfirmEmailResponse(status int32, message string) (*auth_v1.ConfirmEmailResponse, error) {
+	return &auth_v1.ConfirmEmailResponse{
+		Status:  status,
+		Message: message,
+	}, nil
+}
+
+func ConfirmEmailErrorResponse(code codes.Code, message string) (*auth_v1.ConfirmEmailResponse, error) {
+	return nil, status.Error(code, message)
+}
