@@ -1,18 +1,30 @@
 package handlers
 
-import "github.com/SiriusServiceDesk/gateway-service/pkg/auth_v1"
+import (
+	"github.com/SiriusServiceDesk/gateway-service/pkg/auth_v1"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
 
-func LoginResponse(status int32, token, stringError string, err error) (*auth_v1.LoginResponse, error) {
+func LoginResponse(status int32, token, message string) (*auth_v1.LoginResponse, error) {
 	return &auth_v1.LoginResponse{
-		Status: status,
-		Token:  token,
-		Error:  stringError,
-	}, err
+		Status:  status,
+		Token:   token,
+		Message: message,
+	}, nil
 }
 
-func RegistrationResponse(status int32, stringError string, err error) (*auth_v1.RegistrationResponse, error) {
+func LoginErrorResponse(code codes.Code, message string) (*auth_v1.LoginResponse, error) {
+	return nil, status.Error(code, message)
+}
+
+func RegistrationResponse(status int32, message string) (*auth_v1.RegistrationResponse, error) {
 	return &auth_v1.RegistrationResponse{
-		Status: status,
-		Error:  stringError,
-	}, err
+		Status:  status,
+		Message: message,
+	}, nil
+}
+
+func RegistrationErrorResponse(code codes.Code, message string) (*auth_v1.RegistrationResponse, error) {
+	return nil, status.Error(code, message)
 }
