@@ -11,6 +11,11 @@ type HttpServer struct {
 	Port string `yaml:"port" env-default:"8000"`
 }
 
+type GrpcServer struct {
+	Host string `yaml:"host" env-default:"0.0.0.0"`
+	Port string `yaml:"port" env-default:"8000"`
+}
+
 type Db struct {
 	Host     string `yaml:"host" env-default:"localhost"`
 	Port     string `yaml:"port" env-default:"5432"`
@@ -19,10 +24,29 @@ type Db struct {
 	Name     string `yaml:"db_name" env-default:"postgres"`
 }
 
+type Redis struct {
+	Host     string `yaml:"host" env-default:"localhost"`
+	Port     string `yaml:"port" env-default:"6379"`
+	Password string `yaml:"password"`
+}
+
+type JWT struct {
+	Expires int    `yaml:"expires"`
+	Secret  string `yaml:"secret"`
+}
+
+type NotificationService struct {
+	Address string `yaml:"address"`
+}
+
 type Config struct {
-	Env        string     `yaml:"env" env-required:"true"`
-	HttpServer HttpServer `yaml:"http_server"`
-	Db         Db         `yaml:"db"`
+	Env                 string              `yaml:"env" env-required:"true"`
+	HttpServer          HttpServer          `yaml:"http_server"`
+	GrpcServer          GrpcServer          `yaml:"grpc_server"`
+	Db                  Db                  `yaml:"db"`
+	Redis               Redis               `yaml:"redis"`
+	Jwt                 JWT                 `yaml:"jwt"`
+	NotificationService NotificationService `yaml:"notification_service"`
 }
 
 func GetConfig() *Config {
