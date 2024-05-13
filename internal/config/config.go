@@ -35,13 +35,18 @@ type JWT struct {
 	Secret  string `yaml:"secret"`
 }
 
+type NotificationService struct {
+	Address string `yaml:"address"`
+}
+
 type Config struct {
-	Env        string     `yaml:"env" env-required:"true"`
-	HttpServer HttpServer `yaml:"http_server"`
-	GrpcServer GrpcServer `yaml:"grpc_server"`
-	Db         Db         `yaml:"db"`
-	Redis      Redis      `yaml:"redis"`
-	Jwt        JWT        `yaml:"jwt"`
+	Env                 string              `yaml:"env" env-required:"true"`
+	HttpServer          HttpServer          `yaml:"http_server"`
+	GrpcServer          GrpcServer          `yaml:"grpc_server"`
+	Db                  Db                  `yaml:"db"`
+	Redis               Redis               `yaml:"redis"`
+	Jwt                 JWT                 `yaml:"jwt"`
+	NotificationService NotificationService `yaml:"notification_service"`
 }
 
 func GetConfig() *Config {
