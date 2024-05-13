@@ -41,8 +41,26 @@ func (u UserServiceImpl) GetUsers() ([]*models.User, error) {
 }
 
 func (u UserServiceImpl) UpdateUser(id string, user *models.User) (*models.User, error) {
-	//TODO implement me
-	panic("implement me")
+	existingUser, err := u.repos.GetUserById(id)
+	if err != nil {
+		return nil, err
+	}
+	updateTime := time.Now()
+	existingUser = &models.User{
+		Id:         existingUser.Id,
+		Name:       user.Name,
+		Surname:    user.Surname,
+		SecondName: user.SecondName,
+		Password:   existingUser.Password,
+		Email:      existingUser.Email,
+		IsVerified: user.IsVerified,
+		TelegramId: user.TelegramId,
+		PhotoUrl:   user.PhotoUrl,
+		CreatedAt:  user.CreatedAt,
+		UpdatedAt:  &updateTime,
+	}
+
+	return u.repos.UpdateUser(user)
 }
 
 func (u UserServiceImpl) DeleteUser(id string) error {
