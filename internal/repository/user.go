@@ -10,10 +10,19 @@ import (
 
 type UserRepository interface {
 	GetUsers() ([]*models.User, error)
-	GetUser(id string) (*models.User, error)
+	GetUserById(id string) (*models.User, error)
+	GetUserByEmail(email string) (*models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
 	UpdateUser(user *models.User) (*models.User, error)
 	DeleteUser(id string) error
+}
+
+func (u UserRepositoryImpl) GetUserByEmail(email string) (*models.User, error) {
+	var result *models.User
+	if err := u.db.Where(models.User{Email: email}).First(&result).Error; err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 func (u UserRepositoryImpl) GetUsers() ([]*models.User, error) {
@@ -24,7 +33,7 @@ func (u UserRepositoryImpl) GetUsers() ([]*models.User, error) {
 	return result, nil
 }
 
-func (u UserRepositoryImpl) GetUser(id string) (*models.User, error) {
+func (u UserRepositoryImpl) GetUserById(id string) (*models.User, error) {
 	var result *models.User
 	if err := u.db.Where(models.User{Id: id}).First(&result).Error; err != nil {
 		return nil, err
