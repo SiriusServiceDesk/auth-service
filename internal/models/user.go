@@ -11,7 +11,6 @@ type User struct {
 	Email      string  `json:"email" gorm:"unique:true"`
 	IsVerified bool    `json:"is_verified"`
 	TelegramId string  `json:"telegram_id"`
-	PhotoUrl   string  `json:"photo_url"`
 
 	CreatedAt *time.Time `json:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at"`
