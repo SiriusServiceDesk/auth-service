@@ -53,7 +53,7 @@ func (h Handler) Login(ctx context.Context, request *auth_v1.LoginRequest) (*aut
 	}
 
 	if !user.IsVerified {
-		return LoginErrorResponse(codes.Aborted, "user is not verified")
+		return LoginErrorResponse(codes.Internal, "user is not verified")
 	}
 
 	if err := h.userService.ComparePassword(user.Password, password); err != nil {
