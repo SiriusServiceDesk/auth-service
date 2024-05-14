@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	minId = 100000
-	maxId = 999999
+	minId = 1000
+	maxId = 9999
 )
 
 func GenerateConfirmCode() int {
