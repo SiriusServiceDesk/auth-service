@@ -21,6 +21,20 @@ type UserService interface {
 	ComparePassword(userPassword, inputPassword string) error
 	GenerateToken(user *models.User) (string, error)
 	HashingPassword(password string) ([]byte, error)
+	UpdatePassword(userId, password string) error
+}
+
+func (u UserServiceImpl) UpdatePassword(userId, password string) error {
+	user, err := u.repos.GetUserById(userId)
+	if err != nil {
+		return err
+	}
+
+	user.Password = password
+	if _, err := u.repos.UpdateUser(user); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u UserServiceImpl) GetUserByEmail(email string) (*models.User, error) {
@@ -55,7 +69,7 @@ func (u UserServiceImpl) UpdateUser(id string, user *models.User) (*models.User,
 		Email:      existingUser.Email,
 		IsVerified: user.IsVerified,
 		TelegramId: user.TelegramId,
-		PhotoUrl:   user.PhotoUrl,
+		Role:       existingUser.Role,
 		CreatedAt:  user.CreatedAt,
 		UpdatedAt:  &updateTime,
 	}
