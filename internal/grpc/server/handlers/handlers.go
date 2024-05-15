@@ -28,6 +28,30 @@ type Handler struct {
 	redis       repository.RedisRepository
 }
 
+func (h Handler) GetUserIdFromToken(ctx context.Context, request *auth_v1.GetUserIdFromTokenRequest) (*auth_v1.GetUserIdFromTokenResponse, error) {
+	header := request.GetHeader()
+	if len(header) == 0 {
+		return GetUserIdFromTokenErrorResponse(codes.Internal, "token is required")
+	}
+
+	token, err := helpers.GetTokenFromHeaders(header)
+	if err != nil {
+		return GetUserIdFromTokenErrorResponse(codes.Internal, err.Error())
+	}
+
+	userId, err := helpers.GetUserIdFromToken(token)
+	if err != nil {
+		return GetUserIdFromTokenErrorResponse(codes.Internal, "failed to get userId")
+	}
+
+	return GetUserIdFromTokenResponse(userId)
+}
+
+func (h Handler) User(ctx context.Context, request *auth_v1.UserRequest) (*auth_v1.UserResponse, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
 func (h Handler) Status(ctx context.Context, empty *emptypb.Empty) (*auth_v1.StatusResponse, error) {
 	response := &auth_v1.StatusResponse{
 		Status:  http.StatusOK,
