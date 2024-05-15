@@ -12,6 +12,8 @@ github.com/SiriusServiceDesk/gateway-service v0.0.5 h1:SoCyylPNAiUmxLlrqSORL1955
 github.com/SiriusServiceDesk/gateway-service v0.0.5/go.mod h1:Zkz6wxnbMLo+ZdQo/VYgq6JNzp3gfLl0bLz/Itc8DLU=
 github.com/SiriusServiceDesk/gateway-service v0.0.6 h1:+iAxQYg3Sch9NXHkYLKghi5tG+jp4F1E52GyTGcosQY=
 github.com/SiriusServiceDesk/gateway-service v0.0.6/go.mod h1:Zkz6wxnbMLo+ZdQo/VYgq6JNzp3gfLl0bLz/Itc8DLU=
+github.com/SiriusServiceDesk/gateway-service v0.0.7 h1:xQed01fP5V/7hjeQIcFOZ+3uwdYme8SPII2/mOGdz+o=
+github.com/SiriusServiceDesk/gateway-service v0.0.7/go.mod h1:Zkz6wxnbMLo+ZdQo/VYgq6JNzp3gfLl0bLz/Itc8DLU=
 github.com/andybalholm/brotli v1.0.5 h1:8uQZIdzKmjc/iuPu7O2ioW48L81FgatrcpfFmiq/cCs=
 github.com/andybalholm/brotli v1.0.5/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHGRSepvi9Eig=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
