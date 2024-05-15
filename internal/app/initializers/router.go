@@ -3,6 +3,7 @@ package initializers
 import (
 	"github.com/SiriusServiceDesk/auth-service/internal/app/dependencies"
 	"github.com/SiriusServiceDesk/auth-service/internal/web"
+	"github.com/SiriusServiceDesk/auth-service/internal/web/auth"
 	"github.com/SiriusServiceDesk/auth-service/internal/web/status"
 	"github.com/SiriusServiceDesk/auth-service/internal/web/swagger"
 	"github.com/gofiber/fiber/v2"
@@ -20,5 +21,6 @@ func buildRouters(container *dependencies.Container) []web.Controller {
 	return []web.Controller{
 		status.NewStatusController(),
 		swagger.NewSwaggerController(),
+		auth.NewAuthController(container.UserService, container.Redis),
 	}
 }
