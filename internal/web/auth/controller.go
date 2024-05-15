@@ -50,6 +50,17 @@ func (ctrl *Controller) DefineRouter(app *fiber.App) {
 
 }
 
+// login logs in a user
+// @Summary Login
+// @Description Log in a user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body LoginRequest true "Login request"
+// @Success 200 {object} LoginResponseDoc
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/login [post]
 func (ctrl *Controller) login(ctx *fiber.Ctx) error {
 	var request LoginRequest
 	if err := ctx.BodyParser(&request); err != nil {
@@ -78,6 +89,17 @@ func (ctrl *Controller) login(ctx *fiber.Ctx) error {
 	return Response().StatusOK(ctx, LoginResponse{Token: token})
 }
 
+// registration registers a new user
+// @Summary Registration
+// @Description Register a new user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body RegistrationRequest true "Registration request"
+// @Success 200 {object} RawResponse
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/registration [post]
 func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 	var request RegistrationRequest
 
@@ -138,6 +160,17 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 	return Response().StatusOK(ctx, "user created successfully")
 }
 
+// confirmEmail confirms a user's email
+// @Summary Confirm Email
+// @Description Confirm a user's email address
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body ConfirmEmailRequest true "Confirm email request"
+// @Success 200 {object} RawResponse
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/confirmEmail [post]
 func (ctrl *Controller) confirmEmail(ctx *fiber.Ctx) error {
 	var request ConfirmEmailRequest
 
@@ -176,6 +209,17 @@ func (ctrl *Controller) confirmEmail(ctx *fiber.Ctx) error {
 	return Response().StatusOK(ctx, "email confirmation successful")
 }
 
+// resendCode resends the confirmation code to a user
+// @Summary Resend Code
+// @Description Resend the email confirmation code
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body ResendCodeRequest true "Resend code request"
+// @Success 200 {object} RawResponse
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/resendCode [post]
 func (ctrl *Controller) resendCode(ctx *fiber.Ctx) error {
 	var request ResendCodeRequest
 	if err := ctx.BodyParser(&request); err != nil {
@@ -208,6 +252,17 @@ func (ctrl *Controller) resendCode(ctx *fiber.Ctx) error {
 	return Response().StatusOK(ctx, "new code sent successfully")
 }
 
+// resetPassword sends a reset password email to the user
+// @Summary Reset Password
+// @Description Send a reset password email
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body ResetPasswordRequest true "Reset password request"
+// @Success 200 {object} RawResponse
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/resetPassword [post]
 func (ctrl *Controller) resetPassword(ctx *fiber.Ctx) error {
 	var request ResetPasswordRequest
 	if err := ctx.BodyParser(&request); err != nil {
@@ -229,6 +284,17 @@ func (ctrl *Controller) resetPassword(ctx *fiber.Ctx) error {
 	return Response().StatusOK(ctx, "reset password message sent successfully")
 }
 
+// resetPasswordConfirm confirms the reset password action
+// @Summary Reset Password Confirm
+// @Description Confirm the reset password action
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body ResetPasswordConfirmRequest true "Reset password confirm request"
+// @Success 200 {object} RawResponse
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/auth/resetPassword/confirm [post]
 func (ctrl *Controller) resetPasswordConfirm(ctx *fiber.Ctx) error {
 	var request ResetPasswordConfirmRequest
 	if err := ctx.BodyParser(&request); err != nil {
@@ -253,9 +319,21 @@ func (ctrl *Controller) resetPasswordConfirm(ctx *fiber.Ctx) error {
 		return Response().WithDetails(err).ServerInternalError(ctx, "failed to update user")
 	}
 
-	return Response().StatusOK(ctx, "user updated successfully")
+	return Response().StatusOK(ctx, "user password updated successfully")
 }
 
+// user gets the current user info
+// @Summary Get User
+// @Security ApiKeyAuth
+// @param Authorization header string true "Bearer <token>"
+// @Description Get current user info
+// @Tags user
+// @Accept json
+// @Produce json
+// @Success 200 {object} UserResponseDoc
+// @Failure 400 {object} RawResponse
+// @Failure 500 {object} RawResponse
+// @Router /v1/user/user [get]
 func (ctrl *Controller) user(ctx *fiber.Ctx) error {
 	userId, err := helpers.GetUserIdFromToken(ctx)
 	if err != nil {

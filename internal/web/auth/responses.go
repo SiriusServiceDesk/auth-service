@@ -6,7 +6,7 @@ import (
 )
 
 type RawResponse struct {
-	Status  int         `json:"status"`
+	Status  int         `json:"status" example:"200"`
 	Payload interface{} `json:"payload"`
 	Details interface{} `json:"details,omitempty"`
 }

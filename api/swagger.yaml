@@ -1,12 +1,98 @@
 definitions:
-  github.com_urcop_go-fiber-template_internal_web_status.Response:
+  internal_web_auth.ConfirmEmailRequest:
     properties:
-      code:
+      email:
+        example: example@example.com
+        type: string
+      verification_code:
+        example: 1324
         type: integer
-      data:
+    type: object
+  internal_web_auth.LoginRequest:
+    properties:
+      email:
+        example: example@example.com
         type: string
-      message:
+      password:
+        example: passworD1_
         type: string
+    type: object
+  internal_web_auth.LoginResponseDoc:
+    properties:
+      details: {}
+      payload:
+        properties:
+          token:
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+            type: string
+        type: object
+      status:
+        example: 200
+        type: integer
+    type: object
+  internal_web_auth.RawResponse:
+    properties:
+      details: {}
+      payload: {}
+      status:
+        example: 200
+        type: integer
+    type: object
+  internal_web_auth.RegistrationRequest:
+    properties:
+      email:
+        example: example@example.com
+        type: string
+      password:
+        example: passworD1_
+        type: string
+    type: object
+  internal_web_auth.ResendCodeRequest:
+    properties:
+      email:
+        example: example@example.com
+        type: string
+    type: object
+  internal_web_auth.ResetPasswordConfirmRequest:
+    properties:
+      email:
+        type: string
+      new_password:
+        type: string
+    type: object
+  internal_web_auth.ResetPasswordRequest:
+    properties:
+      email:
+        example: example@example.com
+        type: string
+    type: object
+  internal_web_auth.UserResponseDoc:
+    properties:
+      details: {}
+      payload:
+        properties:
+          email:
+            example: example@example.com
+            type: string
+          id:
+            example: 8e3b780c-dfb5-4cd2-ae6b-d83f84a483f9
+            type: string
+          name:
+            example: Keril
+            type: string
+          second_name:
+            example: Maksimovich
+            type: string
+          surname:
+            example: Zagrebin
+            type: string
+          telegram_id:
+            example: "311441242"
+            type: string
+        type: object
+      status:
+        example: 200
+        type: integer
     type: object
   internal_web_status.Response:
     properties:
@@ -32,4 +118,222 @@ paths:
           schema:
             $ref: '#/definitions/internal_web_status.Response'
       summary: Get the status
+  /v1/auth/confirmEmail:
+    post:
+      consumes:
+      - application/json
+      description: Confirm a user's email address
+      parameters:
+      - description: Confirm email request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.ConfirmEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Confirm Email
+      tags:
+      - auth
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Log in a user
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.LoginResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Login
+      tags:
+      - auth
+  /v1/auth/registration:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: Registration request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.RegistrationRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Registration
+      tags:
+      - auth
+  /v1/auth/resendCode:
+    post:
+      consumes:
+      - application/json
+      description: Resend the email confirmation code
+      parameters:
+      - description: Resend code request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.ResendCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Resend Code
+      tags:
+      - auth
+  /v1/auth/resetPassword:
+    post:
+      consumes:
+      - application/json
+      description: Send a reset password email
+      parameters:
+      - description: Reset password request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Reset Password
+      tags:
+      - auth
+  /v1/auth/resetPassword/confirm:
+    post:
+      consumes:
+      - application/json
+      description: Confirm the reset password action
+      parameters:
+      - description: Reset password confirm request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_web_auth.ResetPasswordConfirmRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: sdfsdfdsfs
+          schema:
+            allOf:
+            - $ref: '#/definitions/internal_web_auth.RawResponse'
+            - properties:
+                payload:
+                  type: string
+                status:
+                  type: integer
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      summary: Reset Password Confirm
+      tags:
+      - auth
+  /v1/user/user:
+    get:
+      consumes:
+      - application/json
+      description: Get current user info
+      parameters:
+      - description: Bearer <token>
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_web_auth.UserResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_web_auth.RawResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get User
+      tags:
+      - user
 swagger: "2.0"
