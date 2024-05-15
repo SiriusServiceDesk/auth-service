@@ -44,7 +44,7 @@ func (ctrl *Controller) DefineRouter(app *fiber.App) {
 
 	userGroup.Get("/user", ctrl.user)
 	userGroup.Get("/user/:id", ctrl.userById)
-	userGroup.Put("/user", ctrl.updateUser)
+	userGroup.Put("/user/:id", ctrl.updateUser)
 	userGroup.Post("/user", ctrl.createUser)
 	userGroup.Delete("/user/:id", ctrl.deleteUser)
 
