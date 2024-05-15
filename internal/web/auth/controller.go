@@ -335,7 +335,9 @@ func (ctrl *Controller) resetPasswordConfirm(ctx *fiber.Ctx) error {
 // @Failure 500 {object} RawResponse
 // @Router /v1/user/user [get]
 func (ctrl *Controller) user(ctx *fiber.Ctx) error {
-	token, err := helpers.ValidateToken(ctx)
+	authHeaders := ctx.GetReqHeaders()[fiber.HeaderAuthorization]
+
+	token, err := helpers.GetTokenFromHeaders(authHeaders)
 	if err != nil {
 		return Response().WithDetails(err).ServerInternalError(ctx, "token is invalid")
 	}

@@ -29,9 +29,14 @@ type Handler struct {
 }
 
 func (h Handler) GetUserIdFromToken(ctx context.Context, request *auth_v1.GetUserIdFromTokenRequest) (*auth_v1.GetUserIdFromTokenResponse, error) {
-	token := request.GetToken()
-	if token == "" {
+	header := request.GetHeader()
+	if len(header) == 0 {
 		return GetUserIdFromTokenErrorResponse(codes.Internal, "token is required")
+	}
+
+	token, err := helpers.GetTokenFromHeaders(header)
+	if err != nil {
+		return GetUserIdFromTokenErrorResponse(codes.Internal, err.Error())
 	}
 
 	userId, err := helpers.GetUserIdFromToken(token)

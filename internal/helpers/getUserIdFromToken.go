@@ -3,7 +3,6 @@ package helpers
 import (
 	"errors"
 	"github.com/SiriusServiceDesk/auth-service/internal/config"
-	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt"
 	"strings"
 )
@@ -23,18 +22,16 @@ func getClaims(tokenString string) (*jwt.StandardClaims, error) {
 	return claims, err
 }
 
-func ValidateToken(ctx *fiber.Ctx) (string, error) {
-	authHeader := ctx.GetReqHeaders()[fiber.HeaderAuthorization]
-
-	if len(authHeader) == 0 {
+func GetTokenFromHeaders(headers []string) (string, error) {
+	if len(headers) == 0 {
 		return "", errors.New("auth token is required")
 	}
 
-	if authHeader[0] == "" {
+	if headers[0] == "" {
 		return "", errors.New("auth token is required")
 	}
 
-	tokenSplit := strings.Split(authHeader[0], " ")
+	tokenSplit := strings.Split(headers[0], " ")
 
 	if tokenSplit[0] != "Bearer" {
 		return "", errors.New("invalid token header")
