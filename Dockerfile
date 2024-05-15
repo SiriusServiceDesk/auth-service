@@ -15,7 +15,7 @@ FROM gogcc as builder
 WORKDIR /build
 
 COPY . .
-COPY .gitconfig /etc/gitconfig
+
 RUN go mod download && go mod verify
 
 RUN go build -ldflags="-s -w" -o app ./cmd/app
@@ -33,5 +33,4 @@ COPY --from=builder /build/api .
 COPY --from=builder /build/app .
 COPY --from=builder /build/config/ /config/
 
-#CMD ["ls", "config/"]
 CMD ["/app/app", "s"]
