@@ -53,7 +53,7 @@ func (h Handler) Login(ctx context.Context, request *auth_v1.LoginRequest) (*aut
 	}
 
 	if !user.IsVerified {
-		return LoginErrorResponse(codes.Aborted, "user is not verified")
+		return LoginErrorResponse(codes.Internal, "user is not verified")
 	}
 
 	if err := h.userService.ComparePassword(user.Password, password); err != nil {
@@ -131,21 +131,23 @@ func (h Handler) Registration(ctx context.Context, request *auth_v1.Registration
 
 func (h Handler) ConfirmEmail(ctx context.Context, request *auth_v1.ConfirmEmailRequest) (*auth_v1.ConfirmEmailResponse, error) {
 	email := request.GetEmail()
+	verificationCode := request.GetVerificationCode()
+
 	if email == "" {
 		return ConfirmEmailErrorResponse(codes.InvalidArgument, "email is required")
 	}
-	verificationCode := request.GetVerificationCode()
 	if verificationCode == 0 {
 		return ConfirmEmailErrorResponse(codes.InvalidArgument, "verificationCode is required")
 	}
 
 	savedCode, err := h.redis.Get(email)
 	if err != nil {
-		return ConfirmEmailErrorResponse(codes.Internal, "cant get saved code from cache")
+		return ConfirmEmailErrorResponse(codes.Internal, "can't get saved code from cache")
 	}
+
 	savedCodeInt, err := strconv.Atoi(savedCode)
 	if err != nil {
-		return ConfirmEmailErrorResponse(codes.Internal, "cant convert code type string to int")
+		return ConfirmEmailErrorResponse(codes.Internal, "can't convert code type string to int")
 	}
 
 	if verificationCode != int32(savedCodeInt) {
@@ -154,24 +156,20 @@ func (h Handler) ConfirmEmail(ctx context.Context, request *auth_v1.ConfirmEmail
 
 	user, err := h.userService.GetUserByEmail(email)
 	if err != nil {
-		return ConfirmEmailErrorResponse(codes.Internal, "cant get user from database")
+		return ConfirmEmailErrorResponse(codes.Internal, "can't get user from database")
 	}
 
 	user.IsVerified = true
 	if _, err := h.userService.UpdateUser(user.Id, user); err != nil {
-		return ConfirmEmailErrorResponse(codes.Internal, "cant update user")
+		return ConfirmEmailErrorResponse(codes.Internal, "can't update user")
 	}
 
 	if err := h.redis.Delete(email); err != nil {
-		return ConfirmEmailErrorResponse(codes.Internal, "cant delete from cache")
+		return ConfirmEmailErrorResponse(codes.Internal, "can't delete from cache")
 	}
 
-	return ConfirmEmailResponse(http.StatusOK, "email confirmation successfully")
-}
+	return ConfirmEmailResponse(http.StatusOK, "email confirmation successful")
 
-func (h Handler) User(ctx context.Context, request *auth_v1.UserRequest) (*auth_v1.UserResponse, error) {
-	//TODO implement me
-	panic("implement me")
 }
 
 func NewHandler(userService services.UserService, redisRepository repository.RedisRepository) *Handler {

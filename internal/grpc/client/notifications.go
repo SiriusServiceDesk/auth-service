@@ -5,6 +5,7 @@ import (
 	"github.com/SiriusServiceDesk/auth-service/internal/config"
 	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
 	"github.com/SiriusServiceDesk/gateway-service/pkg/notification_v1"
+	"go.uber.org/zap"
 
 	"google.golang.org/grpc"
 )
@@ -23,7 +24,7 @@ func createConnectionToNotification() (notification_v1.NotificationV1Client, err
 
 	conn, err := grpc.DialContext(ctx, cfg.NotificationService.Address, grpc.WithInsecure())
 	if err != nil {
-		logger.Fatal("Failed to connect gRPC notification:%s\n", err.Error())
+		logger.Error("Failed to connect gRPC notification service", zap.Error(err))
 		return nil, err
 	}
 	return notification_v1.NewNotificationV1Client(conn), nil
