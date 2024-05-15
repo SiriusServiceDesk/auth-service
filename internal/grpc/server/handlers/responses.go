@@ -39,3 +39,13 @@ func ConfirmEmailResponse(status int32, message string) (*auth_v1.ConfirmEmailRe
 func ConfirmEmailErrorResponse(code codes.Code, message string) (*auth_v1.ConfirmEmailResponse, error) {
 	return nil, status.Error(code, message)
 }
+
+func GetUserIdFromTokenErrorResponse(code codes.Code, message string) (*auth_v1.GetUserIdFromTokenResponse, error) {
+	return nil, status.Error(code, message)
+}
+
+func GetUserIdFromTokenResponse(userId string) (*auth_v1.GetUserIdFromTokenResponse, error) {
+	return &auth_v1.GetUserIdFromTokenResponse{
+		UserId: userId,
+	}, nil
+}

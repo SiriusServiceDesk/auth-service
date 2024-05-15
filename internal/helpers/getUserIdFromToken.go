@@ -23,7 +23,7 @@ func getClaims(tokenString string) (*jwt.StandardClaims, error) {
 	return claims, err
 }
 
-func GetUserIdFromToken(ctx *fiber.Ctx) (string, error) {
+func ValidateToken(ctx *fiber.Ctx) (string, error) {
 	authHeader := ctx.GetReqHeaders()[fiber.HeaderAuthorization]
 
 	if len(authHeader) == 0 {
@@ -44,7 +44,11 @@ func GetUserIdFromToken(ctx *fiber.Ctx) (string, error) {
 		return "", errors.New("token must not be empty")
 	}
 
-	claims, err := getClaims(tokenSplit[1])
+	return tokenSplit[1], nil
+}
+
+func GetUserIdFromToken(authToken string) (string, error) {
+	claims, err := getClaims(authToken)
 	if err != nil {
 		return "", err
 	}
