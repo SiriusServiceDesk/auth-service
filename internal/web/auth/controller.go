@@ -70,6 +70,7 @@ func (ctrl *Controller) login(ctx *fiber.Ctx) error {
 
 	user, err := ctrl.userService.GetUserByEmail(request.Email)
 	if err != nil {
+		logger.Debug("login.GetUserByEmail", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant get user from database")
 	}
 
@@ -78,11 +79,13 @@ func (ctrl *Controller) login(ctx *fiber.Ctx) error {
 	}
 
 	if err := ctrl.userService.ComparePassword(user.Password, request.Password); err != nil {
+		logger.Debug("login.ComparePassword", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "incorrect email or password")
 	}
 
 	token, err := ctrl.userService.GenerateToken(user)
 	if err != nil {
+		logger.Debug("login.GenerateToken", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant create user token")
 	}
 
@@ -104,11 +107,13 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 	var request RegistrationRequest
 
 	if err := ctx.BodyParser(&request); err != nil {
+		logger.Debug("registration.BodyParser", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant parse data")
 	}
 
 	user, err := ctrl.userService.GetUserByEmail(request.Email)
 	if err != nil && err != gorm.ErrRecordNotFound {
+		logger.Debug("registration.GeUserByEmail", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant get user from database")
 	}
 
@@ -121,6 +126,7 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 
 	hashedPassword, err := ctrl.userService.HashingPassword(request.Password)
 	if err != nil {
+		logger.Debug("registration.HashingPassword", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant hash password")
 	}
 
@@ -135,15 +141,18 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 	submitCode := helpers.GenerateConfirmCode()
 
 	if err := ctrl.redis.Set(request.Email, submitCode); err != nil {
+		logger.Debug("registration.SetCodeToRedis", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant generate submit code")
 	}
 
 	if _, err := ctrl.userService.CreateUser(newUser); err != nil {
+		logger.Debug("registration.CreateUser", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant create user")
 	}
 
 	jsonData, err := json.Marshal(VerificationMessageData{Code: submitCode})
 	if err != nil {
+		logger.Debug("registration.MarshalJsonData", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant marshal json data")
 	}
 
@@ -156,6 +165,7 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 	}
 
 	if _, err := client.SendMessage(&message); err != nil {
+		logger.Debug("registration.SendMessage", zap.Error(err))
 		return Response().WithDetails(err).ServerInternalError(ctx, "cant send message")
 	}
 

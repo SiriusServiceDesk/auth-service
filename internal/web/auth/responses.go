@@ -8,7 +8,7 @@ import (
 type RawResponse struct {
 	Status  int         `json:"status" example:"200"`
 	Payload interface{} `json:"payload"`
-	Details interface{} `json:"details,omitempty"`
+	Details error       `json:"details,omitempty"`
 }
 
 func Response() *RawResponse {
