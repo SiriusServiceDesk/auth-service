@@ -17,6 +17,8 @@ type LoginResponseDoc struct {
 }
 
 type RegistrationRequest struct {
+	Name     string `json:"name" example:"kirill"`
+	Surname  string `json:"surname" example:"zagrebin"`
 	Email    string `json:"email" example:"example@example.com"`
 	Password string `json:"password" example:"passworD1_"`
 }
