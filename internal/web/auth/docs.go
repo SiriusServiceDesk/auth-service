@@ -25,7 +25,7 @@ type RegistrationRequest struct {
 
 type ConfirmEmailRequest struct {
 	Email            string `json:"email" example:"example@example.com"`
-	VerificationCode int    `json:"verification_code" example:"1324"`
+	VerificationCode string `json:"verification_code" example:"1324"`
 }
 
 type ResendCodeRequest struct {

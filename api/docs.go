@@ -289,24 +289,9 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "sdfsdfdsfs",
+                        "description": "OK",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/internal_web_auth.RawResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "payload": {
-                                            "type": "string"
-                                        },
-                                        "status": {
-                                            "type": "integer"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/internal_web_auth.RawResponse"
                         }
                     },
                     "400": {
@@ -383,8 +368,8 @@ const docTemplate = `{
                     "example": "example@example.com"
                 },
                 "verification_code": {
-                    "type": "integer",
-                    "example": 1324
+                    "type": "string",
+                    "example": "1324"
                 }
             }
         },
@@ -438,9 +423,17 @@ const docTemplate = `{
                     "type": "string",
                     "example": "example@example.com"
                 },
+                "name": {
+                    "type": "string",
+                    "example": "kirill"
+                },
                 "password": {
                     "type": "string",
                     "example": "passworD1_"
+                },
+                "surname": {
+                    "type": "string",
+                    "example": "zagrebin"
                 }
             }
         },
