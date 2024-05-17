@@ -12,7 +12,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"strconv"
 )
 
 type Controller struct {
@@ -195,12 +194,7 @@ func (ctrl *Controller) confirmEmail(ctx *fiber.Ctx) error {
 		return Response().WithDetails(err).ServerInternalError(ctx, "can't get saved code from cache")
 	}
 
-	savedCodeInt, err := strconv.Atoi(savedCode)
-	if err != nil {
-		return Response().WithDetails(err).ServerInternalError(ctx, "can't convert code type string to int")
-	}
-
-	if request.VerificationCode != savedCodeInt {
+	if request.VerificationCode != savedCode {
 		return Response().BadRequest(ctx, "the saved code doesn't match the code that came in")
 	}
 
