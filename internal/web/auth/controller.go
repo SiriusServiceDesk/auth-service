@@ -128,6 +128,8 @@ func (ctrl *Controller) registration(ctx *fiber.Ctx) error {
 		Password: string(hashedPassword),
 		Email:    request.Email,
 		Role:     models.UserR,
+		Name:     request.Name,
+		Surname:  request.Surname,
 	}
 
 	submitCode := helpers.GenerateConfirmCode()
