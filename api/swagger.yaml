@@ -5,8 +5,8 @@ definitions:
         example: example@example.com
         type: string
       verification_code:
-        example: 1324
-        type: integer
+        example: "1324"
+        type: string
     type: object
   internal_web_auth.LoginRequest:
     properties:
@@ -43,8 +43,14 @@ definitions:
       email:
         example: example@example.com
         type: string
+      name:
+        example: kirill
+        type: string
       password:
         example: passworD1_
+        type: string
+      surname:
+        example: zagrebin
         type: string
     type: object
   internal_web_auth.ResendCodeRequest:
@@ -284,16 +290,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: sdfsdfdsfs
+          description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/internal_web_auth.RawResponse'
-            - properties:
-                payload:
-                  type: string
-                status:
-                  type: integer
-              type: object
+            $ref: '#/definitions/internal_web_auth.RawResponse'
         "400":
           description: Bad Request
           schema:
