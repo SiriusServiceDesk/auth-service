@@ -5,9 +5,13 @@ import "time"
 type userRole string
 
 const (
-	Admin   userRole = "admin"
-	Manager userRole = "manager"
-	UserR   userRole = "user"
+	Admin         userRole = "Админ"
+	TechDep       userRole = "Технический отдел"
+	MethodicalDep userRole = "Методический отдел"
+	StudyOffice   userRole = "Учебный офис"
+	Hotel         userRole = "Гостиница"
+	Educators     userRole = "Воспитательный отдел"
+	UserR         userRole = "user"
 )
 
 type User struct {
@@ -27,8 +31,4 @@ type User struct {
 
 func (u *User) IsAdmin() bool {
 	return u.Role == Admin
-}
-
-func (u *User) IsStaff() bool {
-	return u.Role == Manager
 }
