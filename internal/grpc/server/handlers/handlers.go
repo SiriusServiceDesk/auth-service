@@ -9,6 +9,7 @@ import (
 	"github.com/SiriusServiceDesk/auth-service/internal/models"
 	"github.com/SiriusServiceDesk/auth-service/internal/repository"
 	"github.com/SiriusServiceDesk/auth-service/internal/services"
+	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
 	"github.com/SiriusServiceDesk/gateway-service/pkg/auth_v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -26,6 +27,22 @@ type Handler struct {
 	auth_v1.UnimplementedAuthV1Server
 	userService services.UserService
 	redis       repository.RedisRepository
+}
+
+func (h Handler) GetUserById(ctx context.Context, request *auth_v1.GetUserByIdRequest) (*auth_v1.GetUserByIdResponse, error) {
+	userId := request.GetUserId()
+	if userId == "" {
+		logger.Debug("userId is empty")
+		return GetUserByIdErrorResponse(codes.InvalidArgument, "userId is required")
+	}
+
+	user, err := h.userService.GetUserById(userId)
+	if err != nil {
+		logger.Debug("cant get user from db")
+		return GetUserByIdErrorResponse(codes.Internal, "failed to get user")
+	}
+
+	return GetUserByIdResponse(user)
 }
 
 func (h Handler) GetUserIdFromToken(ctx context.Context, request *auth_v1.GetUserIdFromTokenRequest) (*auth_v1.GetUserIdFromTokenResponse, error) {

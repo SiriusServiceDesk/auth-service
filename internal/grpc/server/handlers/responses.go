@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/SiriusServiceDesk/auth-service/internal/models"
 	"github.com/SiriusServiceDesk/gateway-service/pkg/auth_v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -42,6 +43,20 @@ func ConfirmEmailErrorResponse(code codes.Code, message string) (*auth_v1.Confir
 
 func GetUserIdFromTokenErrorResponse(code codes.Code, message string) (*auth_v1.GetUserIdFromTokenResponse, error) {
 	return nil, status.Error(code, message)
+}
+
+func GetUserByIdErrorResponse(code codes.Code, message string) (*auth_v1.GetUserByIdResponse, error) {
+	return nil, status.Error(code, message)
+}
+
+func GetUserByIdResponse(user *models.User) (*auth_v1.GetUserByIdResponse, error) {
+	return &auth_v1.GetUserByIdResponse{
+		Name:       user.Name,
+		Surname:    user.Surname,
+		SecondName: "",
+		Email:      user.Email,
+		Role:       string(user.Role),
+	}, nil
 }
 
 func GetUserIdFromTokenResponse(userId string) (*auth_v1.GetUserIdFromTokenResponse, error) {
