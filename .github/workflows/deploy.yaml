@@ -51,9 +51,11 @@ jobs:
             docker stop auth-service || true
             docker rm auth-service || true
             echo "${{ secrets.PROD_CONFIG }} > /config/prod.yaml"
-            docker run -d --name auth-service \\ 
-              -e CONFIG_PATH=/config/prod.yaml \\
-              -v ~/serviceDesk/auth-service/config:/config \\
-              -p 8001:8000 -p 3001:3000 \\
-              --restart unless-stop
-              --network sirius-service-desk ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+            docker run -d \
+              --name auth-service \ 
+              -e CONFIG_PATH=/config/prod.yaml \
+              -v ~/serviceDesk/auth-service/config:/config \
+              -p 8001:8000 -p 3001:3000 \
+              --restart unless-stop \
+              --network sirius-service-desk \
+              ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
