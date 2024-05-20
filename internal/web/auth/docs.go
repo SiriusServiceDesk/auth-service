@@ -49,6 +49,7 @@ type UserResponse struct {
 	Id         string  `json:"id" example:"8e3b780c-dfb5-4cd2-ae6b-d83f84a483f9"`
 	Name       string  `json:"name" example:"Keril"`
 	Surname    string  `json:"surname" example:"Zagrebin"`
+	Role       string  `json:"role" example:"Методический отдел"`
 	SecondName *string `json:"second_name" example:"Maksimovich"`
 	Email      string  `json:"email" example:"example@example.com"`
 	TelegramId string  `json:"telegram_id" example:"311441242"`
