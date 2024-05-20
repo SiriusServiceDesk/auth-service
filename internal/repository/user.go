@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/SiriusServiceDesk/auth-service/internal/config"
 	"github.com/SiriusServiceDesk/auth-service/internal/models"
+	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
+	"go.uber.org/zap"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -81,6 +83,10 @@ func NewUserRepository() UserRepository {
 	err = db.AutoMigrate(&models.User{})
 	if err != nil {
 		panic(err)
+	}
+
+	if err := pgSvc.seeds(); err != nil {
+		logger.Debug("failed to migrate seeds", zap.Error(err))
 	}
 	return pgSvc
 }
