@@ -8,6 +8,7 @@ func MappingUserModelToResponse(user *models.User) UserResponse {
 		Name:       user.Name,
 		Surname:    user.Surname,
 		SecondName: user.SecondName,
+		Role:       string(user.Role),
 		Email:      user.Email,
 		TelegramId: user.TelegramId,
 	}

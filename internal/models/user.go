@@ -11,7 +11,7 @@ const (
 	StudyOffice   userRole = "Учебный офис"
 	Hotel         userRole = "Гостиница"
 	Educators     userRole = "Воспитательный отдел"
-	UserR         userRole = "user"
+	UserR         userRole = "Пользователь"
 )
 
 type User struct {
