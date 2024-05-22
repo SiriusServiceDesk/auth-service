@@ -29,6 +29,22 @@ type Handler struct {
 	redis       repository.RedisRepository
 }
 
+func (h Handler) ConnectTelegram(ctx context.Context, request *auth_v1.ConnectTelegramRequest) (*auth_v1.ConnectTelegramResponse, error) {
+	user, err := h.userService.GetUserById(request.GetUserId())
+	if err != nil {
+		return nil, err
+	}
+
+	user.TelegramId = request.GetTelegramId()
+	if _, err := h.userService.UpdateUser(user.Id, user); err != nil {
+		return nil, err
+	}
+
+	return &auth_v1.ConnectTelegramResponse{
+		Message: "telegram connect successfully",
+	}, nil
+}
+
 func (h Handler) GetUserById(ctx context.Context, request *auth_v1.GetUserByIdRequest) (*auth_v1.GetUserByIdResponse, error) {
 	userId := request.GetUserId()
 	if userId == "" {
