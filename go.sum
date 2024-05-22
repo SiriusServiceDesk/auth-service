@@ -8,6 +8,8 @@ github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV
 github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
 github.com/SiriusServiceDesk/gateway-service v0.0.11 h1:MmIe+kdLaR01u52AaOlV3cp7O7JVZljI8WNPYR5sUkw=
 github.com/SiriusServiceDesk/gateway-service v0.0.11/go.mod h1:Zkz6wxnbMLo+ZdQo/VYgq6JNzp3gfLl0bLz/Itc8DLU=
+github.com/SiriusServiceDesk/gateway-service v0.0.12 h1:NDZ7C0bOFROpiXQfz4Syw0eTzgDNk3pRk2lCWda6qHw=
+github.com/SiriusServiceDesk/gateway-service v0.0.12/go.mod h1:Zkz6wxnbMLo+ZdQo/VYgq6JNzp3gfLl0bLz/Itc8DLU=
 github.com/andybalholm/brotli v1.0.5 h1:8uQZIdzKmjc/iuPu7O2ioW48L81FgatrcpfFmiq/cCs=
 github.com/andybalholm/brotli v1.0.5/go.mod h1:fO7iG3H7G2nSZ7m0zPUDn85XEX2GTukHGRSepvi9Eig=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
