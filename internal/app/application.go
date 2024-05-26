@@ -7,6 +7,7 @@ import (
 	"github.com/SiriusServiceDesk/auth-service/internal/repository"
 	"github.com/SiriusServiceDesk/auth-service/internal/services"
 	"github.com/SiriusServiceDesk/auth-service/pkg/logger"
+	"github.com/SiriusServiceDesk/auth-service/prom"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 )
@@ -36,4 +37,6 @@ func InitApplication(app *fiber.App) {
 	initializers.SetupRoutes(app, container)
 
 	initializers.StartGRPCServer(grpcServer)
+
+	prom.SetupPrometheus()
 }
